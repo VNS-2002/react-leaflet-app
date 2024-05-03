@@ -1,18 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { useState ,useContext, } from "react";
-import DashboardContext from "../Context/DashboardContext";
+
 import { useNavigate } from "react-router-dom"; 
 function Login() {
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState('');
 
-  const {setuserData} =useContext(DashboardContext)
-  const navigate = useNavigate(); // Get the navigate function
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setuserData({userName, password})
-    navigate('/profile');
-  };
+  const navigate = useNavigate(); // Get the navigate function
+ 
   return (
     <>
       {/* component */}
@@ -42,7 +38,8 @@ function Login() {
           </div>
           <div>
             <button className="w-full py-4 bg-blue-600 hover:bg-blue-700 rounded text-sm font-bold text-gray-50 transition duration-200"
-            onClick={handleSubmit}>
+            // onClick={handleSubmit}
+            >
               Sign In
             </button>
           </div>

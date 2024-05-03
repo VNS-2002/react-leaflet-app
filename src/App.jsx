@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import Card from "./Components/Card";
+
 function App() {
   // eslint-disable-next-line no-unused-vars
   let [counter1, setCounter1] = useState(0);
@@ -32,12 +32,7 @@ function App() {
           Increment Counter
         </button>
       </div>
-      <div className="flex mx-2">
-        <Card />
-        <Card/>
-        <Card />
-        <Card />
-      </div>
+      
       <h3>Props</h3>
       <button
         onClick={() => setCounter1((prev) => prev + 1)}
