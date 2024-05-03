@@ -1,0 +1,45 @@
+.custom-dropdown {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  margin-left: 22px;
+}
+button{
+  background-color:  #61dafb;
+  /* background-color: blue; */
+  padding: 3px;
+  border-radius: 10px;
+  margin: 2px;
+}
+.form-label{
+  color: rgb(255, 255, 255);
+}
+/* //////////////////////////////// */
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-input {
+  appearance: none;
+  width: 1.2em;
+  height: 1.2em;
+  border: 2px solid #4a5568;
+  border-radius: 0.25em;
+  outline: none;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.checkbox-input:checked {
+  background-color: #4299e1;
+  border-color: #4299e1;
+}
+
+.checkbox-label {
+  margin-left: 0.5em;
+  color: aliceblue;
+}
+
+
+
