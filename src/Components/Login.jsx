@@ -1,19 +1,53 @@
 /* eslint-disable no-unused-vars */
-import { useState ,useContext, } from "react";
-
-import { useNavigate } from "react-router-dom"; 
+import { useState, useContext, } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  FeatureGroup,
+  ZoomControl,
+  useMapEvents,
+  useMap,
+  GeoJSON,
+} from "react-leaflet";
+import { useNavigate } from "react-router-dom";
 function Login() {
   const [userName, setuserName] = useState("");
   const [password, setpassword] = useState('');
-
+  const [mapInteractionDisabled, setMapInteractionDisabled] = useState(false);
 
   const navigate = useNavigate(); // Get the navigate function
- 
+
   return (
     <>
       {/* component */}
-      <section className="flex justify-center items-center h-screen bg-gray-100">
-        <div className="max-w-md w-full bg-white rounded p-6 space-y-4">
+      <section className="">
+        <MapContainer
+          center={[19.0808, 73.0268]}
+          zoom={13}
+          className="custom-map-container z-0"
+          zoomControls={false}
+          dragging={!mapInteractionDisabled} // add this prop to control dragging
+          doubleClickZoom={!mapInteractionDisabled}
+        >
+
+          <TileLayer
+            attribution="Map"
+            url={
+              "http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
+            }
+            ext="png"
+            maxZoom={20}
+            minZoom={1}
+            subdomains={["mt0", "mt1", "mt2", "mt3"]}
+          />
+        </MapContainer>
+
+        <div className=" absolute top-20 left-20 right-20 max-w-md w-full bg-white rounded p-6 space-y-4 z-[10000]"
+          onMouseEnter={() => setMapInteractionDisabled(true)} // Disable map interaction on mouse enter
+          onMouseLeave={() => setMapInteractionDisabled(false)}
+        >
           <div className="mb-4">
             <p className="text-gray-600">Sign In</p>
             <h2 className="text-black text-xl font-bold">Join our community</h2>
@@ -23,7 +57,7 @@ function Login() {
               className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
               type="text"
               value={userName}
-              onChange={(e)=>setuserName(e.target.value)}
+              onChange={(e) => setuserName(e.target.value)}
               placeholder="Email"
             />
           </div>
@@ -32,7 +66,7 @@ function Login() {
               className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
               type="text"
               value={password}
-              onChange={(e)=>setpassword(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
               placeholder="Password"
             />
           </div>
@@ -64,6 +98,7 @@ function Login() {
           </div>
         </div>
       </section>
+
     </>
   );
 }
