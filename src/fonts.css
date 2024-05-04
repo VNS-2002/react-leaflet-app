@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "OpenSans-Regular";
+  src: local("OpenSans-Regular"),
+    url("./Assets/fonts/OpenSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat-BlackItalic";
+  src: local("Montserrat-BlackItalic"),
+    url("./Assets/fonts/Montserrat-BlackItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wdth,wght,YTLC@0,6..12,75..125,200..1000,440..540;1,6..12,75..125,200..1000,440..540&display=swap");
+}
+@font-face {
+  font-family: "Nunito";
+  src: url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wdth,wght,YTLC@0,6..12,75..125,200..1000,440..540;1,6..12,75..125,200..1000,440..540&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+}

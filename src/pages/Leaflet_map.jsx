@@ -51,7 +51,13 @@ function Leaflet_map() {
   const [state, setState] = useState(false);
   const mapRef = useRef(null);
 
-  
+  // useEffect(() => {
+  //   const map = L.map("map").setView([19.259314789, 73.142241885], 13);
+  //   mapRef.current = map;    
+  //   return () => {
+  //     map.remove();
+  //   };
+  // }, []);
   
 
   const toggleFormVisibility = () => {
@@ -61,6 +67,17 @@ function Leaflet_map() {
   const handleLayerChange = (layer) => {
     setSelectedLayer(layer);
   };
+
+  // useEffect(() => {
+  //   mapRef.current.removeControl(map._controlCorners.topleft);
+  //   let zoomControl = null;
+  //   return () => {
+  //     if (zoomControl !== null) {
+  //       mapRef.current.removeControl(zoomControl);
+  //       zoomControl = null;
+  //     }
+  //   };
+  // }, []);
 
   // Use useMapEvents within the MapContainer
   function MousePosition({ onPositionChange }) {
@@ -204,15 +221,14 @@ function Leaflet_map() {
       </div>
       <MapContainer
         center={[19.0808, 73.0268]}
-        zoom={13}
-        className="custom-map-container"
-        ref={mapRef}
-        zoomControls={false}
+        zoom={13}   
+        ref={mapRef}  
+        zoomControl={false}      
       >
         <MousePosition onPositionChange={handleMousePositionChange} />
         {/* OPEN STREEN MAPS TILES */}
-        <TileLayer
-          attribution="Map"
+        <TileLayer        
+         
           url={
             selectedLayer === "osm"
               ? "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -226,6 +242,7 @@ function Leaflet_map() {
           maxZoom={20}
           minZoom={1}
           subdomains={["mt0", "mt1", "mt2", "mt3"]}
+          zoomControl={false} 
         />
         {/* <GeoJSON data={data} /> */}
         {/* <GeoJSON data={data}/> */}
