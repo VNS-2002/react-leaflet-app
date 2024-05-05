@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from "react";
 import L from "leaflet";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, clearUser } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { FormControl } from "@mui/base";
@@ -8,7 +10,9 @@ import AlternateEmailRoundedIcon from "@mui/icons-material/AlternateEmailRounded
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 import indronesLogo from '../indrones_black.png';
+import toast, { Toaster } from "react-hot-toast";
 function Login() {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -26,7 +30,7 @@ function Login() {
 
     L.tileLayer(
       "http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}",
-      {       
+      {
         maxNativeZoom: 20,
         maxZoom: 20,
         name: "baselayer",
@@ -39,10 +43,7 @@ function Login() {
       map.remove();
     };
   }, []);
-  const handleEmailChange = (e) => {
-    setMailAlertMge("");
-    setEmail(e.target.value);
-  };
+
   const handlePasswordChange = (e) => {
     setPassAlertMge("");
     setPassword(e.target.value);
@@ -50,6 +51,81 @@ function Login() {
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
   };
+  const handleEmailChange = (e) => {
+    setMailAlertMge("");
+    setEmail(e.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Login started");
+    // Check if entered credentials match any predefined user
+    const user = predefinedUsers.find(
+      (user) => user.email === email && user.password === password
+    );
+    if (email === "" && password === "") {
+      toast.error("Please enter your email and password");
+    } else  if (password === "") {
+      toast.error("Please enter your password");
+    }else if (email === "") {
+      toast.error("Please enter your email");
+    } else {
+      if (user) {
+        // Redirect to dashboard or home page upon successful login
+        console.log("Login successful");
+        console.log("Welcome,", user.firstName, user.lastName);
+        console.log("Role:", user.role);
+        dispatch(setUser(user));
+        navigate("/home");
+        toast.success("Login successful");
+      } else if (!predefinedUsers.some((user) => user.email === email)) {
+        // If email is incorrect
+        toast.error("Invalid email");
+      } else if (predefinedUsers.some((user) => user.email === email && user.password !== password)) {
+        // If email is correct but password is incorrect
+        toast.error("Invalid password");
+      } else {
+        // All other possible combinations     
+        toast.error("Invalid email or password");
+      }
+    }
+  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("Login started");
+  //   // Check if entered credentials match any predefined user
+  //   const user = predefinedUsers.find(
+  //     (user) => user.email === email && user.password === password
+  //   );
+
+  //   if (user) {
+  //     // Redirect to dashboard or home page upon successful login
+  //     console.log("Login successful");
+  //     console.log("Welcome,", user.firstName, user.lastName);
+  //     console.log("Role:", user.role);
+  //     dispatch(setUser(user));
+  //     navigate("/home");
+  //   } else {
+  //     // setError("Invalid email or password");
+  //   }
+  // };
+  const predefinedUsers = [
+    {
+      email: "vinayak12528@gmail.com",
+      password: "abc",
+      firstName: "vinayak",
+      lastName: "sanvake",
+      role: "R&D Intern",
+    },
+    {
+      email: "user2@example.com",
+      password: "password2",
+      firstName: "Jane",
+      lastName: "Smith",
+      role: "user",
+    },
+    // Add more predefined users as needed
+  ];
+
   return (
     <>
       <section>
@@ -57,47 +133,28 @@ function Login() {
           ref={mapContainerRef}
           className="custom-map-container z-0"
         ></div>
+        <Toaster
+          position="top-center"
+          reverseOrder={true}
+          toastOptions={{
+            duration: 1000,
+            style: {
+              background: "#fff",
+              color: "#4a4844",
+              border: "1px solid #fff",
+            },
+          }}
+        />
 
-        {/* <div
-          className="absolute top-20 left-20 right-20 max-w-[300px] w-full bg-white rounded py-20 px-8 space-y-4 z-[10000]"
-        >
-      
-          <div className="mb-4">           
-            <h2 className="text-black text-xl font-bold">Sign In</h2>
-          </div>
-          <div>
-            <input
-              className="w-full p-3 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
-              type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              placeholder="Email"
-            />
-          </div>
-          <div>
-            <input
-              className="w-full p-3 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
-              type="text"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-            />
-          </div>
-          <div>
-            <button className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded text-sm font-bold text-gray-50 transition duration-200">
-              Sign In
-            </button>
-          </div>
-        </div> */}
-         <div className="glass-container flex flex-col justify-center items-center h-auto min-w-[25vw]  pb-20 pt-12 rounded-lg absolute top-1/2 left-[10%] transform -translate-y-1/2 bg-white shadow-lg z-50">
+        <div className="glass-container flex flex-col justify-center items-center h-auto min-w-[25vw]  pb-20 pt-12 rounded-lg absolute top-1/2 left-[10%] transform -translate-y-1/2 bg-white shadow-lg z-50">
           <div className="flex justify-center items-end my-2  ">
             <img className=" h-16 w-[200px]" src={indronesLogo} alt="indrones logo" />{" "}
           </div>
           {/* <h2 className="my-4 text-center text-xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in
           </h2> */}
-          <form className="mt-8 w-4/5 " 
-          // onSubmit={handleSubmit}
+          <form className="mt-8 w-4/5 "
+            onSubmit={handleSubmit}
           >
             <div className="mb-6 relative">
               <TextField
@@ -110,7 +167,7 @@ function Login() {
                 value={email}
                 type="text"
                 size="small"
-                // onChange={handleEmailChange}
+                onChange={handleEmailChange}
                 style={{ fontSize: "17px", background: "white" }}
               />
               <div
@@ -133,7 +190,7 @@ function Login() {
                   label="Password"
                   size="small"
                   autoComplete="current-password"
-                  // value={password}
+                  value={password}
                   onChange={handlePasswordChange}
                   style={{ fontSize: "17px" }}
                 />
