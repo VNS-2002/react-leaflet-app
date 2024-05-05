@@ -12,11 +12,12 @@ import Login from './Components/Login.jsx';
 import Leaflet_map from './pages/Leaflet_map.jsx';
 import { Provider } from "react-redux";
 import rootStore from "./redux/store/store.js";
+import Projects from './pages/projects.jsx';
 const router = createBrowserRouter(
-  createRoutesFromElements(
-  
+  createRoutesFromElements(  
     <Route >
       <Route path='/' element={<Login />} />
+      <Route path='/projects' element={<Projects />} />
       <Route path='/home' element={<App />} />
       <Route path='/login' element={<Login />} />
       <Route path='/map' element={<Leaflet_map />} />

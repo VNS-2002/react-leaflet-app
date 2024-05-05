@@ -75,7 +75,7 @@ function Login() {
         console.log("Welcome,", user.firstName, user.lastName);
         console.log("Role:", user.role);
         dispatch(setUser(user));
-        navigate("/home");
+        navigate("/projects");
         toast.success("Login successful");
       } else if (!predefinedUsers.some((user) => user.email === email)) {
         // If email is incorrect
