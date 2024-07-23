@@ -60,12 +60,7 @@ const Projects = () => {
                 Login{" "}
               </MenuItem>
             </Menu>
-            <div className="p-3">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptate id non labore sint aliquid vero consectetur in, sunt
-              cupiditate doloribus, molestias rem cum veritatis modi
-              reprehenderit tempora provident quibusdam porro.
-            </div>
+
           </Sidebar>
         </div>
         <div className="p-3 mt-6 absolute left-[300px] flex flex-row gap-4">
@@ -76,15 +71,13 @@ const Projects = () => {
               alt="Sunset in the mountains"
             />
             <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
+              <div className="font-bold text-xl mb-2">The AGP Factory </div>
             </div>
             <div className="px-6 pt-0 pb-2 flex justify-end">
-              <button className="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                #photography
-              </button>
-              <button className="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2">
-                #winter
-              </button>
+
+              <Link to="/leaflet" className="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2">
+                Site 1
+              </Link>
             </div>
           </div>
           <div className="max-w-sm rounded overflow-hidden shadow-lg">
@@ -94,15 +87,12 @@ const Projects = () => {
               alt="Sunset in the mountains"
             />
             <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
+              <div className="font-bold text-xl mb-2">The AGP Factory </div>
             </div>
             <div className="px-6 pt-0 pb-2 flex justify-end">
-              <button className="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                #photography
-              </button>
-              <button className="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2">
-                #winter
-              </button>
+              <Link to="/leaflet" className="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2">
+                Site 1
+              </Link>
             </div>
           </div>
         </div>

@@ -37,7 +37,7 @@ function Login() {
       }
     ).addTo(map);
 
-    map.flyTo([19.0808, 73.0268], 9, { duration: 3.5 }); // Fly to the specified lat lng with a zoom level of 13 in 3 seconds
+    map.flyTo([19.0808, 73.0268], 9, { duration: 4 }); // Fly to the specified lat lng with a zoom level of 13 in 3 seconds
 
     return () => {
       map.remove();
@@ -117,8 +117,8 @@ function Login() {
       role: "R&D Intern",
     },
     {
-      email: "user2@example.com",
-      password: "password2",
+      email: "vinayak.sanvake@gmail.com",
+      password: "1234",
       firstName: "Jane",
       lastName: "Smith",
       role: "user",
@@ -220,7 +220,7 @@ function Login() {
             </div> */}
             <div className="mt-8  mx-auto">
               <button
-                className="padding-[13px] items-center h-[42px] flex w-full justify-center rounded-[3px] bg-[#4a4844] px-3 py-1.5 text-[16px] font-semibold leading-6 text-white shadow-sm hover:bg-[#808787] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="padding-[13px] items-center h-[42px] flex w-full justify-center rounded-[3px] bg-[#ffee35] px-3 py-1.5 text-[16px] font-semibold leading-6 text-white shadow-sm hover:bg-[#808787] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 type="submit"
               >
                 Login
@@ -228,7 +228,7 @@ function Login() {
             </div>
           </form>
           <div className="flex items-center  absolute bottom-2">
-            <span className=" text-sm">Intership Demo</span>
+            <span className=" text-sm">Internship Demo</span>
             {/* <img
               src={indronesNameLogoBlack}
               className="h-4"

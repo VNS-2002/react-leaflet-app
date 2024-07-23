@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 const Layout = () => {
   const [collapsed, setCollapsed] = React.useState(false);
@@ -27,7 +28,7 @@ const Layout = () => {
           Collapse
         </button>
       </div> */}
-      <div className="flex flex-col relative h-screen">
+      <div className="flex flex-row  absolute top-0 left-0  h-[100vh] bg-white z-[500] rounded-tr-lg">
         <div className="absolute flex h-screen m-0">
           <Sidebar
             collapsed={collapsed}
@@ -57,15 +58,21 @@ const Layout = () => {
             >
               <SubMenu label="Charts" hoverColor="rgba(20,26,34,.725)" >
                 <MenuItem> <div>
-                Pie charts  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem facere atque reprehenderit deleniti unde recusandae eaque, vel accusamus eveniet explicabo! Doloremque molestias inventore corrupti commodi rerum fuga illum quam explicabo?
-                  
+                Markers List 
                   </div></MenuItem>
                
               </SubMenu>
+              <MenuItem
+                component={<Link to="/" />}
+                hoverColor="rgba(20,26,34,.725)"
+              >
+                {" "}
+                Login{" "}
+              </MenuItem>              
               <MenuItem hoverColor="rgba(20,26,34,.725)"> Documentation </MenuItem>
-              <MenuItem hoverColor="rgba(20,26,34,.725)"> Calendar </MenuItem>
+              <MenuItem hoverColor="rgba(20,26,34,.725)"> Annotations </MenuItem>
             </Menu>
-            <div className='p-3'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate id non labore sint aliquid vero consectetur in, sunt cupiditate doloribus, molestias rem cum veritatis modi reprehenderit tempora provident quibusdam porro.</div>
+            
           </Sidebar>
         </div>
         <button
