@@ -40,25 +40,16 @@ const Projects = () => {
               hoverColor="rgba(20,26,34,.725)"
             >
               <SubMenu label="Charts" hoverColor="rgba(20,26,34,.725)">
-                <MenuItem>
-                  {" "}
-                  <div>
-                    Pie charts Lorem ipsum dolor sit amet consectetur,
-                    adipisicing elit. Dolorem facere atque reprehenderit
-                    deleniti unde recusandae eaque, vel accusamus eveniet
-                    explicabo! Doloremque molestias inventore corrupti commodi
-                    rerum fuga illum quam explicabo?
-                  </div>
-                </MenuItem>
+                
               </SubMenu>
               <MenuItem hoverColor="rgba(20,26,34,.725)"> doc </MenuItem>
-              <MenuItem
+              {/* <MenuItem
                 component={<Link to="/" />}
                 hoverColor="rgba(20,26,34,.725)"
               >
                 {" "}
                 Login{" "}
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
 
           </Sidebar>

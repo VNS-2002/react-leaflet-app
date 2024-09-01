@@ -62,15 +62,7 @@ const Layout = () => {
                   </div></MenuItem>
                
               </SubMenu>
-              <MenuItem
-                component={<Link to="/" />}
-                hoverColor="rgba(20,26,34,.725)"
-              >
-                {" "}
-                Login{" "}
-              </MenuItem>              
-              <MenuItem hoverColor="rgba(20,26,34,.725)"> Documentation </MenuItem>
-              <MenuItem hoverColor="rgba(20,26,34,.725)"> Annotations </MenuItem>
+              
             </Menu>
             
           </Sidebar>

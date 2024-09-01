@@ -23,6 +23,7 @@
     "file-saver": "^2.0.5",
     "georaster": "^1.6.0",
     "georaster-layer-for-leaflet": "^3.10.0",
+    "jszip": "^3.10.1",
     "leaflet": "^1.9.4",
     "leaflet-ajax": "^2.1.0",
     "leaflet-draw": "^1.0.4",
@@ -37,7 +38,12 @@
     "react-leaflet-kml": "^2.1.1",
     "react-pro-sidebar": "^1.1.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.11.0"
+    "react-router-dom": "^6.11.0",
+    "shapefile": "^0.6.6",
+    "shp-write": "^0.3.2",
+    "togeojson": "^0.16.0",
+    "tokml": "^0.4.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

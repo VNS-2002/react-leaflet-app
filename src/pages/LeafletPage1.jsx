@@ -21,20 +21,45 @@ import {
   OpenTopoMapIcon,
 } from "../Assets/icons";
 import * as turf from "@turf/turf";
+import ShapeModal from "../Components/ShapeModal";
+import { v4 as uuidv4 } from 'uuid';
+import { addShape, removeShape } from '../redux/slices/shapeSlice';
+import { useDispatch, useSelector  } from 'react-redux';
+import ShapeDrawer from "../Components/ShapeDrawer";
 const LeafletPage1 = () => {
+  const shapes = useSelector((state) => state.shapes.shapes); 
+  console.log("shapes",shapes);
   const [mapInitialized, setMapInitialized] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [theme, setTheme] = useState(false);
   const [baseLayer, setBaseLayer] = useState("GoogleStreetMap");
   const toolbarDivRef = useRef(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [shapeData, setShapeData] = useState(null);
+  const [currentLayer, setCurrentLayer] = useState(null);
+  const dispatch = useDispatch();
+  const editableLayers = new L.FeatureGroup();
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const handleSave = (data) => {
+    dispatch(addShape(data));
+    setOpenModal(false);
+    setCurrentLayer(null);
+    setOpenDrawer(true); // Open the drawer to show saved shapes
+  };
+  const handleCancel = (layer) => {
+    if (layer) {
+      mapRef.current.removeLayer(layer);
+    }
+    setOpenModal(false);
+    setCurrentLayer(null);
+  };
   useEffect(() => {
     const map = L.map("map").setView([40.712216, -74.22655], 13);
     mapRef.current = map;
     googleMapLayer.addTo(mapRef.current);
     setMapInitialized(true);
     setBaseLayer("GoogleStreetMap");
-    map.removeControl(map._controlCorners.topleft);
-    var editableLayers = new L.FeatureGroup();
+    map.removeControl(map._controlCorners.topleft);    
     map.addLayer(editableLayers);
 
     var MyCustomMarker = L.Icon.extend({
@@ -82,19 +107,27 @@ const LeafletPage1 = () => {
     map.on(L.Draw.Event.CREATED, function (e) {
       var type = e.layerType,
         layer = e.layer;
-
+      let areaInSquareMeters;
+      let lengthInMeters;
       if (type === 'marker') {
         layer.bindPopup('A Marker!');
       } else if (type === 'polygon') {
         // Calculate area using Turf.js
-        const areaInSquareMeters = L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]);
+         areaInSquareMeters = L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]);
         layer.bindPopup('Area: ' + areaInSquareMeters.toFixed(2) + ' square meters');
       } else if (type === 'polyline') {
         // Calculate length using Turf.js
-        const lengthInMeters = L.GeometryUtil.length(layer);
+         lengthInMeters = L.GeometryUtil.length(layer);
         layer.bindPopup('Length: ' + lengthInMeters.toFixed(2) + ' meters');
       }
-
+      layer._leaflet_id=uuidv4(), 
+      setCurrentLayer(layer);
+      setShapeData({
+        type,
+        area: type === 'polygon' ? areaInSquareMeters : null,
+        length: type === 'polyline' ? lengthInMeters : null
+      });
+      setOpenModal(true);
       editableLayers.addLayer(layer);
     });
 
@@ -121,9 +154,9 @@ const LeafletPage1 = () => {
         });
       }
     }
-    var imageUrl = 'https://www.google.com/maps/vt/data=PhqztSFYKh-PCpYqDP43JrkzxCn0VR97ynY-9SI4tbMiQ7yWEu5v0fo3Eah_QRKY2Ffm5YSLkIjFBJZJKSglO0iJEZqf9btxCOlG_eg3KuN7wpL0QN5Oslkn40GrUKMGNo_cK3Y6FPx8SOqIkU1I_23grsrL7_blMl4qNM-LHQkzy9g2lQP3NDVe934nQKgHE2dAoi3cTV2yyIIL72lAcSIaUg',
-      imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
-    L.imageOverlay(imageUrl, imageBounds).addTo(map);
+    // var imageUrl = 'https://www.google.com/maps/vt/data=PhqztSFYKh-PCpYqDP43JrkzxCn0VR97ynY-9SI4tbMiQ7yWEu5v0fo3Eah_QRKY2Ffm5YSLkIjFBJZJKSglO0iJEZqf9btxCOlG_eg3KuN7wpL0QN5Oslkn40GrUKMGNo_cK3Y6FPx8SOqIkU1I_23grsrL7_blMl4qNM-LHQkzy9g2lQP3NDVe934nQKgHE2dAoi3cTV2yyIIL72lAcSIaUg',
+    //   imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
+    // L.imageOverlay(imageUrl, imageBounds).addTo(map);
     // var imageUrl = 'Aerial Photography (Orthophoto) - 2021.png',
     //   imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
     // L.imageOverlay(imageUrl, imageBounds).addTo(map);
@@ -341,7 +374,14 @@ const LeafletPage1 = () => {
         </div>
       </div>
       <div id="map" className="h-screen w-full z-0"></div>
-      <Layout className="absolute z-[100000]" />
+      <ShapeDrawer />
+      <ShapeModal 
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        onSave={handleSave}
+        onCancel={handleCancel}
+        layer={currentLayer}
+      />
     </>
   );
 };
